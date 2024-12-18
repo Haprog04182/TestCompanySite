@@ -1,0 +1,249 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+}
+:root{
+    --i:calc(1dvh + 1dvw); 
+}
+body{
+    background-color: rgb(25,25,30);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
+a{
+    color: white;
+    text-decoration: none;
+}
+.logo{
+    border: 5px solid white;    
+    padding: 25px;
+    border-radius: 50px;
+}
+header{
+    height: 100dvh;
+    width: 100dvw;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: start;
+
+    margin-bottom: 100px;
+}
+section{
+    margin:10%;
+
+    padding: 5px;
+}
+.canvas_bg{
+    width: 100dvw;
+    height: 100dvh;
+    position: absolute;
+    z-index: -1;
+    transform: translate(-10px, -10%);
+}
+.header:not(:hover) > .canvas_bg{
+    transform: translateY(-200px);
+}
+header > .title > h1{
+    font-size: 100px;
+    width: 45dvw;
+
+    line-height: 95px;
+    letter-spacing: 5px;
+}
+
+
+
+.mouseTr{
+    transform: translate(calc(var(--mouseX) * 0.02), calc(var(--mouseY) * 0.02) );
+}
+
+.balls{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    perspective: 1000px;
+}
+.links{
+    text-transform: uppercase;
+    text-align: center;
+    width: calc(var(--i) * 10);
+    height: calc(var(--i) * 10);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(rgb(220, 68, 12) 40%, rgb(25,25,30) ); 
+    position: relative;
+    
+    transition: .35s;
+    filter: saturate(0.8);
+}
+.links:hover{
+    transform: scale(1.2) translateY(-10px) ;
+    filter: saturate(1.2);
+}
+.links:hover + *
+{
+    transform: rotateY(35deg);
+    filter: saturate(0.9);
+}
+.links:has(+ *:hover) {
+    transform: rotateY(calc(-35deg));
+    filter: saturate(0.9);
+
+}
+
+.blocks{
+    width: 90dvw;
+    position: relative;
+}
+.block{
+    width: 250px;
+    height: 200px;
+    padding: 5%;
+    border: 2px solid white;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    position: relative;
+    z-index: 5;
+}
+.block::after{
+    content: "";
+    position: absolute;
+    display: block;
+    width: inherit;
+    height: inherit;
+    border: inherit;
+    border-radius: inherit;
+    top:0;
+    transform: rotate(2deg) translateX(-2px);
+    background-color: rgb(30,30,35);
+    z-index: -9;
+
+    animation: blockAnim ease-in-out forwards;
+    animation-timeline: view(5dvh);
+}
+.block.right{
+    transform: translateX(50dvw);
+}
+.block > p{
+    color:grey;
+}
+
+.sect_2 > h2{
+
+    width: 35dvw;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, #dd4711 40%, #ffbd71 10%, #d65c10);
+    background-repeat: repeat-x;
+    background-position: 0 0;
+    transform: translateX(-10dvw);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #0B2349;
+    display: table;
+
+    animation: textAnim ease-in forwards;
+    animation-timeline: scroll();
+}
+
+
+.cards {
+    position: relative;
+    margin-top: 15dvh;
+}
+.card{
+    width: 25dvw;
+    min-height: 5dvh;
+    max-height: 50dvh;
+    border: 5px solid white;
+    border-radius: 25px;
+    padding: 25px;
+    position: absolute;
+    transform: rotate(90deg);
+
+    animation: cardAnim ease-in-out forwards;
+    animation-timeline: view();
+    animation-range: 10dvh 70dvh;
+}
+.card:nth-child(2){
+    background-color: #d65c10;
+}
+.card:nth-child(3){
+    background-color: white;
+    color: black;
+}
+.card > h3{
+    text-transform: uppercase;
+    margin-bottom: 10%;
+}
+
+/* .table3d{
+    margin-top:50dvh; 
+    width: 50dvw;
+    height: 50dvh;
+    background: linear-gradient(195deg, #f24405, #e78f2a 10%, #ef5f06);
+    border-radius: 25px;
+    border: 2px solid white;    
+    padding: 50px;
+}
+.table3d > form{
+    display: flex;
+    flex-direction: column;
+
+    gap: 10dvh;
+}
+.table3d > form > input{
+    border: none;
+    padding: 1%;
+    background-color: rgb(30,25,40);
+    color: white;
+    border-radius: 25px;
+} */
+
+footer{
+    margin-top: 50dvh;
+    position: relative;
+    min-height: 40dvh;
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+    border-top: 2px dashed orangered;
+    border-radius: 25px 25px 0 0;
+    padding: 25px;
+}
+@keyframes cardAnim {
+       to{
+            transform: translate(  calc(var(--cardIndex) * 1dvw)) rotate(calc(-0.1deg * (var(--cardIndex))));
+       } 
+}
+@keyframes textAnim {
+    from{
+        background-position: 0 0;
+        transform: translateX(-10dvw);
+    }
+    to{
+        background-position: 200dvw 0;
+        transform: translateX(10dvw);
+    }
+}
+
+@keyframes blockAnim {
+    0%{
+        transform: rotate(0deg) ;
+    } 
+    50%{
+        transform: rotate(5deg) translateX(-40px);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
